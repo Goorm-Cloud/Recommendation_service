@@ -1,6 +1,9 @@
 import requests
 import os
-from config import KAKAO_API_KEY_REST  # .env에서 키를 불러올 수 있게 되어 있어야 함
+from dotenv import load_dotenv
+
+load_dotenv(dotenv_path="/app/.env")
+KAKAO_API_KEY_REST = os.getenv("KAKAO_API_KEY_REST")
 
 def fetch_places_from_kakao(lat, lng):
     headers = {
