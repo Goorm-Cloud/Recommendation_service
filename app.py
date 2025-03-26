@@ -1,11 +1,25 @@
+import os
 from flask import Flask
-from routes import bp
 from flask_cors import CORS
+from routes import bp
+from dotenv import load_dotenv
 
-app = Flask(__name__)
-CORS(app)
+load_dotenv()
 
-app.register_blueprint(bp)
+def create_app():
+    app = Flask(__name__)
+    app.config.from_pyfile('config.py')
+    app.secret_key = os.urandom(24)
+    CORS(app)
 
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5001, debug=True)
+    # 환경변수 확인 예시
+    if not os.getenv("KAKAO_API_KEY_REST"):
+        raise ValueError("❌ KAKAO_API_KEY_REST가 설정되지 않았습니다!")
+
+    # 블루프린트 등록
+    app.register_blueprint(bp)
+
+    return app
+
+# WSGI용 앱 객체 생성
+app = create_app()
