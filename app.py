@@ -1,10 +1,11 @@
+from dotenv import load_dotenv
+load_dotenv(dotenv_path="/app/.env")
 import os
 from flask import Flask
 from flask_cors import CORS
 from routes import bp
-from dotenv import load_dotenv
 
-load_dotenv()
+print("🚀 [app.py] KAKAO_API_KEY_REST =", os.getenv("KAKAO_API_KEY_REST"))
 
 def create_app():
     app = Flask(__name__)
