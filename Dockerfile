@@ -44,4 +44,4 @@ ENV FLASK_APP=app.py
 ENV FLASK_ENV=production
 
 # Gunicorn 실행
-CMD ["/bin/bash", "-c", "export $(cat .env | xargs) && gunicorn --bind 0.0.0.0:8005 --workers 4 app:app"]
+CMD ["gunicorn", "--bind", "0.0.0.0:8005", "--workers", "4", "app:app"]
