@@ -4,7 +4,7 @@ from flask_cors import CORS
 from routes import bp
 from dotenv import load_dotenv
 
-load_dotenv(dotenv_path="/app/.env")
+load_dotenv()
 
 def create_app():
     app = Flask(__name__)
@@ -15,6 +15,7 @@ def create_app():
     # 환경변수 확인 예시
     if not os.getenv("KAKAO_API_KEY_REST"):
         raise ValueError("❌ KAKAO_API_KEY_REST가 설정되지 않았습니다!")
+    app.config['TEMPLATES_AUTO_RELOAD'] = True
 
     # 블루프린트 등록
     app.register_blueprint(bp)
